@@ -18,7 +18,7 @@ const reducer = function(state, action){
                 }
             })
         }
-        break;
+        // break;
         case 'ADD' :
         console.log(action.payload)
         // console.log(...state.contacts)
@@ -27,7 +27,7 @@ const reducer = function(state, action){
             // ...state,
             contacts : [action.payload, ...state.contacts] 
         }
-        break;
+        // break;
         default :
         return state;
     }
@@ -52,8 +52,8 @@ export class Provider extends Component{
             phoneNumber : 123456
         },{
             id : 4,
-            name : 45345,
-            email : 'unknown@gmail.com',
+            name : 'James',
+            email : 'james@gmail.com',
             phoneNumber : 123456
         }],
         dispatch : (action)=>{this.setState((state) => (reducer(state, action)))}

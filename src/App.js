@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
-import './App.css';
+import './stylesheets/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
+
+import React, { Component } from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+
 import { Provider } from './Context'
 import Header from './components/Header'
+import Home from './components/Home'
+import About from './views/About'
 import Contacts from './components/Contacts'
 import AddContact from './components/AddContact'
+import NotFound from './views/NotFound'
 
 class App extends Component {
   render() {
@@ -17,11 +23,18 @@ class App extends Component {
     // );
     return (
       <Provider>
+      <Router>
       <div className="App container">
         <Header brand="Contact Manager" />
-        <AddContact />
-         <Contacts />
+        <Switch>
+          <Route exact path='/' render={(props) => <Home title="Modern Contact Directory" {...props} />}></Route>
+          <Route exact path='/contact' component={Contacts}></Route>
+          <Route exact path='/contact/add' component={AddContact}></Route>
+          <Route exact path='/about' component={About}></Route>
+          <Route component={NotFound}></Route>
+         </Switch>
       </div>
+      </Router>
       </Provider>
     );
   }
