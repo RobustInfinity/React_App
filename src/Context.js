@@ -27,6 +27,22 @@ const reducer = function(state, action){
             // ...state,
             contacts : [action.payload, ...state.contacts] 
         }
+        case 'UPDATE' :
+        console.log(action.payload)
+        // console.log(...state.contacts)
+        
+        return{ 
+            contacts : state.contacts.filter((contact)=>{
+                // console.log(contact)
+                if(contact.id === action.payload.id){
+                    console.log(contact)
+                    console.log(action.payload)
+                    contact = action.payload;}
+                    console.log(contact)
+                    return contact;
+                
+            })
+        }
         // break;
         default :
         return state;
@@ -35,28 +51,20 @@ const reducer = function(state, action){
 export class Provider extends Component{
 
     state={
-        contacts : [{
-            id : 1,
-            name : 'Jhon Doe',
-            email : 'jdoe@gmail.com',
-            phoneNumber : 123456
-        },{
-            id : 2,
-            name : 'Bob Ross',
-            email : 'bross@gmail.com',
-            phoneNumber : 123456
-        },{
-            id : 3,
-            name : 'Dawyne Smith',
-            email : 'dsmith@gmail.com',
-            phoneNumber : 123456
-        },{
-            id : 4,
-            name : 'James',
-            email : 'james@gmail.com',
-            phoneNumber : 123456
-        }],
+        contacts : [],
         dispatch : (action)=>{this.setState((state) => (reducer(state, action)))}
+    }
+
+    componentDidMount(){
+        console.log('componentDidMount...')
+        const url = 'https://jsonplaceholder.typicode.com/users/2'
+        fetch('https://jsonplaceholder.typicode.com/users')
+        .then((response)=>{ return response.json()})
+        .then((json)=>{
+            this.setState({contacts : json})
+            console.log(json)
+        })
+        .catch((err)=>{console.log(err)})
     }
 
     render(){

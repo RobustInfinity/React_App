@@ -12,19 +12,19 @@ const Header = (props) =>{
                 <ul className="navbar-nav ">
                 <li className="nav-item">
                     <Link to='/' className="nav-link">
-                    <i class="fas fa-home"></i> Home</Link>
+                    <i className="fas fa-home"></i> Home</Link>
                 </li>
                 <li className="nav-item">
                     <Link to='/contact/add' className="nav-link">
-                    <i class="far fa-plus-square"></i> Add</Link>
+                    <i className="far fa-plus-square"></i> Add</Link>
                 </li>
                 <li className="nav-item">
                     <Link to='/contact' className="nav-link">
-                    <i class="far fa-address-book"></i> Contacts</Link>
+                    <i className="far fa-address-book"></i> Contacts</Link>
                 </li>
                 <li className="nav-item">
                     <Link to='/about' className="nav-link">
-                    <i class="far fa-question-circle"></i> About</Link>
+                    <i className="far fa-question-circle"></i> About</Link>
                 </li>
                 </ul>
             </div>

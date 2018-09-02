@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const InputGroup = (props)=>{
     const {name, type, value, placeholder, onChange, error} = props;
-    console.log(props);
+    // console.log(props);
     if(name=== 'phone'){
         parseInt(value, 10);
     }

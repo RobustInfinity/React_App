@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Consumer} from '../Context'
 import InputGroup from '../components/InputGroup'
 import uuidv1 from 'uuid/v1'
+import { parse } from 'path';
 
 
 class AddContact extends Component{
@@ -17,23 +18,42 @@ class AddContact extends Component{
             website : ''
         }
     }
-    addContact = (dispatch, e)=>{
+    componentDidMount(){
+        const {id} = this.props.match.params;
+        console.log(id)
+        fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then((response)=>{ return response.json()})
+        .then((json)=>{
+            this.setState({
+                name : json.name,
+                email : json.email,
+                phone : json.phone,
+                website : json.website,
+            })
+            console.log(json)
+        })
+        .catch((err)=>{console.log(err)})
+    }
+    updateContact = (dispatch, e)=>{
+        
         e.preventDefault()
         const {name, email, phone, website,errors} = this.state
         console.log(name + ' ' + email +' ' +phone + ' ' +website)
         if(this.validate(name, email, phone,website)){
+            const {id} = this.props.match.params;
+            // id  = parseInt(id,10)
             const newContact = {
-                id : uuidv1(),
+                id: parseInt(id,10),
                 name,
                 email,
-                phone : parseInt(phone, 10),
+                phone,
                 website,
                 errors
             }
             console.log(newContact)
-            fetch('https://jsonplaceholder.typicode.com/users', {
-                method: 'POST',
-                body: JSON.stringify({newContact}),
+            fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({id, name, email, phone,website}),
                 headers: {
                 "Content-type": "application/json; charset=UTF-8"
                 }
@@ -41,8 +61,8 @@ class AddContact extends Component{
             .then(response => {return response.json()})
             .then(json => {
                 console.log(json)
-                dispatch({type : 'ADD', payload : newContact})})
-            
+                dispatch({type : 'UPDATE', payload : json})
+            })
             this.setState(
                 {
                     name : '',
@@ -117,7 +137,7 @@ class AddContact extends Component{
                    <InputGroup name='email' value={email} type='email' placeholder='Enter Email' onChange={this.onChange} error={errors.email}></InputGroup>
                    <InputGroup name='phone' value={phone} type='text' placeholder='Enter Phone ' onChange={this.onChange} error={errors.phone}></InputGroup>
                    <InputGroup name='website' value={website} type='text' placeholder='Enter Website' onChange={this.onChange} error={errors.website}></InputGroup>
-                    <button className="btn btn-block btn-primary" onClick={this.addContact.bind(this, dispatch)}>Add</button>
+                    <button className="btn btn-block btn-primary" onClick={this.updateContact.bind(this, dispatch)}>Update</button>
                 </div>
                 </div>
                 </div>

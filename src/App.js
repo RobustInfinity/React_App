@@ -10,6 +10,7 @@ import Home from './components/Home'
 import About from './views/About'
 import Contacts from './components/Contacts'
 import AddContact from './components/AddContact'
+import EditContact from './components/EditContact'
 import NotFound from './views/NotFound'
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
           <Route exact path='/' render={(props) => <Home title="Modern Contact Directory" {...props} />}></Route>
           <Route exact path='/contact' component={Contacts}></Route>
           <Route exact path='/contact/add' component={AddContact}></Route>
+          <Route exact path='/contact/EditContact/:id' component={EditContact}></Route>
           <Route exact path='/about' component={About}></Route>
           <Route component={NotFound}></Route>
          </Switch>
